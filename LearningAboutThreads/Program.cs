@@ -31,17 +31,16 @@ public static class Program
     {
         var windowTitleBuilder = new StringBuilder(1024);
         int windowTitleLength = GetWindowTextLength(hWnd);
-        if (GetWindowText(hWnd, windowTitleBuilder, windowTitleLength + 1) > 0)
-        {
-            var windowTitle = windowTitleBuilder.ToString();
-            if (!windowTitle.Contains("Felher")) return true; // continue enumerating windows
+        if (GetWindowText(hWnd, windowTitleBuilder, windowTitleLength + 1) <= 0)
+            return true; // continue enumerating windows
+        
+        var windowTitle = windowTitleBuilder.ToString();
+        if (!windowTitle.Contains("Felher")) return true; // continue enumerating windows
             
-            // store the handle to the "Felher" window
-            _felherWindowHandle = hWnd;
-            return false; // stop enumerating windows
-        }
+        // store the handle to the "Felher" window
+        _felherWindowHandle = hWnd;
+        return false; // stop enumerating windows
 
-        return true; // continue enumerating windows
     }
 
     // ReSharper disable once UnusedParameter.Local
